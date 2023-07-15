@@ -1,0 +1,4 @@
+-> Selalu sertakan syntax berikut di head html pada blade agar dapat bisa menggunakan utility class Tailwind
+copy ini : @vite('resources/css/app.css')
+
+-> Kelompokkan blade ke direktori yang sesuai berdasarkan tujuannya.
