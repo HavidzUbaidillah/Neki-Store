@@ -13,6 +13,4 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('page1-home.index');
-});
+Route::get('/', function () { return view('page1-home.index'); });
