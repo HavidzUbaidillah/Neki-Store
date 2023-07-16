@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use App\Models\BarangModel;
+use App\Models\ProdukModel;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -23,6 +23,9 @@ class DatabaseSeeder extends Seeder
             AdminSeeder::class,
             KategoriSeeder::class,
             ProdukSeeder::class,
+            TagSeeder::class,
+            TopProdukSeeder::class,
+            TagProdukSeeder::class,
         ]);
     }
 }
