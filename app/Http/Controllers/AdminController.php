@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreAdminRequest;
 use App\Models\AdminModel;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -19,7 +20,6 @@ class AdminController extends Controller
         if($request->validate($rules)){
             if (Auth::guard('admin')->attempt($request->all())) {
                 $request->session()->regenerate();
-
                 return redirect()->intended(route('admin.dashboard'));
             }
             else{
@@ -57,9 +57,11 @@ class AdminController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreAdminRequest $request)
+    public function store(StoreAdminRequest $request, AdminModel $adminModel)
     {
         //
+        $adminModel->queryCreate($request->all());
+        return back()->with('sukses', 'Query berhasil');
     }
 
     /**
