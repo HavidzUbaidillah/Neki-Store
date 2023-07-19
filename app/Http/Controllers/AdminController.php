@@ -12,19 +12,23 @@ use Illuminate\Support\Facades\Hash;
 class AdminController extends Controller
 {
     public final function auth(Request $request) {
-        $credentials = $request->validate([
+        $rules = [
             'username' => 'required',
             'password' => 'required',
-        ]);
+        ];
+        if($request->validate($rules)){
+            if (Auth::guard('admin')->attempt($request->all())) {
+                $request->session()->regenerate();
 
-        if (Auth::guard('admin')->attempt($credentials)) {
-            $request->session()->regenerate();
+                return redirect()->intended(route('admin.dashboard'));
+            }
+            else{
+                return back()->withErrors(['error'=>'Username atau Password Salah'])->onlyInput('username');
+            }
+        }else{
+            return back()->withErrors(['error'=>'Cek kembali input anda!']);
+        }
 
-            return redirect()->intended(route('admin.dashboard'));
-        }
-        else{
-            return back()->withErrors(['error'=>'Username atau Password Salah'])->onlyInput('username');
-        }
     }
 
     public function logout(Request $request): RedirectResponse
@@ -39,7 +43,7 @@ class AdminController extends Controller
     }
 
     public final function index(){
-        return view('page4-account.index');
+        return view('page2-admin.index');
     }
 
     /**
