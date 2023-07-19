@@ -123,7 +123,7 @@
         function dropdown() {
             var iconDropdown = document.getElementById('icon-dropdown');
             if (submenu1.classList.contains('open')){
-                submenu1.classList.remove('open');
+               dropdown1();
             }
             submenu.classList.toggle("open");
             iconDropdown.classList.toggle("rotate-180", submenu.classList.contains('open'));
@@ -131,7 +131,7 @@
         function dropdown1() {
             var iconDropdown = document.getElementById('icon-dropdown1');
             if (submenu.classList.contains('open')){
-                submenu.classList.remove('open');
+                dropdown();
             }
             submenu1.classList.toggle("open");
             iconDropdown.classList.toggle("rotate-180", submenu.classList.contains('open'));
