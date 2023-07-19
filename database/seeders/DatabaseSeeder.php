@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\NewProdukModel;
 use App\Models\ProdukModel;
 use Illuminate\Database\Seeder;
 
@@ -26,6 +27,7 @@ class DatabaseSeeder extends Seeder
             TagSeeder::class,
             TopProdukSeeder::class,
             TagProdukSeeder::class,
+            NewProdukSeeder::class,
         ]);
     }
 }
