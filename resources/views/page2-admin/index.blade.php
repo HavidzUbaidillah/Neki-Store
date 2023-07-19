@@ -25,13 +25,14 @@
         }
     </style>
 </head>
-<body class="bg-transparent">
-<button class="absolute text-white text-3xl top-9 -left-3 cursor-pointer transition-opacity duration-1000 ease-in-out"
-        onclick="openSidebar()" id="sidebar-open-button">
-    <i class="bi bi-chevron-double-right px-2.5 py-1 bg-gray-900 rounded-md"></i>
-</button>
+<body>
+<section id="header">
+    <button class="absolute text-white text-3xl top-9 -left-3 cursor-pointer transition-opacity duration-1000 ease-in-out"
+            onclick="openSidebar()" id="sidebar-open-button">
+        <i class="bi bi-chevron-double-right px-2.5 py-1 bg-gray-900 rounded-md"></i>
+    </button>
 
-<div class="sidebar fixed top-0 bottom-0 lg:left-0 p-2 w-72 overflow-y-auto text-center bg-gray-900 transition-transform duration-500">
+    <div class="sidebar fixed top-0 bottom-0 lg:left-0 p-2 w-72 overflow-y-auto text-center bg-gray-900 transition-transform duration-500">
         <div class="text-gray-100 text-xl">
             <div class="p-2.5 mt-1 flex items-center">
                 <img src="{{asset('assets/img/home/neki-logo.png')}}" class="px-2 bg-gray-900 rounded-md" width="80" height="auto">
@@ -99,20 +100,40 @@
             <span class="text-[15px] ml-4 text-gray-200 font-bold">Logout</span>
         </div>
     </div>
+</section>
 
+<section id="content">
+    <div class="bg-transparent">
+        <div class="flex w-full bg-gray-700 h-20">
+            <div class="w-50 mt-5 transition-opacity duration-100" id="header-logo">
+             <div class="flex ml-12 text-2xl text-gray-50">
+                 <img class="relative h-12" src="{{asset('assets/img/home/neki-logo.png')}}">
+                 <span class="ml-2 mt-1"> Neki Store </span>
+             </div>
+            </div>
+
+        </div>
+
+    </div>
+</section>
     <script>
-        function dropdown() {
-            var submenu = document.querySelector("#submenu");
-            submenu.classList.toggle("open");
+        let submenu = document.querySelector("#submenu");
+        let submenu1 = document.querySelector("#submenu1");
 
+        function dropdown() {
             var iconDropdown = document.getElementById('icon-dropdown');
+            if (submenu1.classList.contains('open')){
+                submenu1.classList.remove('open');
+            }
+            submenu.classList.toggle("open");
             iconDropdown.classList.toggle("rotate-180", submenu.classList.contains('open'));
         }
         function dropdown1() {
-            var submenu = document.querySelector("#submenu1");
-            submenu.classList.toggle("open");
-
             var iconDropdown = document.getElementById('icon-dropdown1');
+            if (submenu.classList.contains('open')){
+                submenu.classList.remove('open');
+            }
+            submenu1.classList.toggle("open");
             iconDropdown.classList.toggle("rotate-180", submenu.classList.contains('open'));
         }
         function openSidebar() {
@@ -123,7 +144,8 @@
             sidebarOpenButton.style.opacity = sidebar.classList.contains("open") ? 0 : 1;
             setTimeout(function() {
                 sidebarClosButton.classList.toggle("rotate-180", sidebar.classList.contains("open"));
-            }, 200);
+                document.getElementById('header-logo').classList.toggle('opacity-0');
+            }, 50);
         }
     </script>
 </body>
