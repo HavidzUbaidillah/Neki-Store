@@ -7,29 +7,33 @@ use App\Models\AdminModel;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class AdminController extends Controller
 {
     public final function auth(Request $request) {
-        $rules = [
+        $validator = Validator::make($request->all(), [
             'username' => 'required',
             'password' => 'required',
-        ];
-        if($request->validate($rules)){
-            if (Auth::guard('admin')->attempt($request->all())) {
-                $request->session()->regenerate();
-                return redirect()->intended(route('admin.dashboard'));
-            }
-            else{
-                return back()->withErrors(['error'=>'Username atau Password Salah'])->onlyInput('username');
-            }
-        }else{
-            return back()->withErrors(['error'=>'Cek kembali input anda!']);
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['error' => 'Harap cek kembali input anda!'], 400);
         }
 
+        $credentials = [
+            'username' => $request->input('username'),
+            'password' => $request->input('password'),
+        ];
+
+        if (Auth::guard('admin')->attempt($credentials)) {
+            $request->session()->regenerate();
+            return response()->json(['Ok'], 200);
+        } else {
+            return response()->json(['error' => 'Username atau Password salah!'], 401);
+        }
     }
+
 
     public function logout(Request $request): RedirectResponse
     {
