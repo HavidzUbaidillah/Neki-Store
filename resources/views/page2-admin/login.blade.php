@@ -1,22 +1,23 @@
 <!doctype html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Neki Store : Login Admin</title>
+    <link rel="icon" href="https://cdn.discordapp.com/attachments/1104037466035466250/1132363566649987113/illust_108131235_20230619_132348.png">
     <style>
         body{
-            background-image: url("https://cdn.discordapp.com/attachments/1104037318521798746/1104424255053123625/Millennium_Campus.webp");
+            background-image: url("https://cdn.discordapp.com/attachments/1104037466035466250/1132355100065681458/20230522_194233.jpg");
             background-size: cover;
         }
     </style>
     @vite('resources/css/app.css')
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css">
 </head>
 <body>
-<!-- component -->
 <div class="min-h-screen bg-black bg-opacity-60 py-6 flex flex-col justify-center sm:py-12">
     <div class="relative py-3 sm:max-w-xl sm:mx-auto">
         <div class="relative px-4 py-10 bg-white dark:bg-gray-700 shadow-lg border-2 border-black sm:rounded-3xl sm:p-20">
@@ -26,17 +27,20 @@
                 </div>
                 <div class="divide-y divide-gray-200">
                     <div class="py-8 text-base leading-6 space-y-4 text-gray-700 dark:text-white sm:text-lg sm:leading-7">
-                        <form method="post" action="{{route('login.auth')}}" id="loginForm">
+                        <form id="loginForm">
                             @csrf
                             <div class="relative mt-3">
-                                <input autocomplete="off" id="username" name="username" value="{{old('username')}}" type="text" class="peer placeholder-transparent bg-transparent h-10 w-full border-b-2 border-gray-300 dark:text-white text-gray-900 focus:outline-none focus:borer-rose-600" placeholder="Username" />
+                                <input autocomplete="off" id="username" name="username" type="text" class="peer placeholder-transparent bg-transparent h-10 w-full border-b-2 border-gray-300 dark:text-white text-gray-900 focus:outline-none focus:borer-rose-600" placeholder="Username" />
                                 <label for="username" class="absolute left-0 -top-3.5 dark:text-white text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-450 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 dark:peer-focus:text-white peer-focus:text-sm">Username</label>
                             </div>
-                            <div class="relative mt-6">
+                            <div class="relative mt-8">
                                 <input autocomplete="off" id="password" name="password" type="password" class="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 dark:text-white bg-transparent text-gray-900 focus:outline-none focus:borer-rose-600" placeholder="Password" />
+                                <button id="showHidePasswordBtn" type="button" class="absolute inset-y-0 right-1 flex items-center">
+                                    <i id="passwordIcon" class="bi bi-eye-fill"></i>
+                                </button>
                                 <label for="password" class="absolute left-0 -top-3.5 dark:text-white text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 dark:peer-focus:text-white peer-focus:text-sm">Password</label>
                             </div>
-                            <div class="relative">
+                            <div class="relative mt-10 -mb-10">
                                 <button id="submitButton" type="submit" class="relative -mx-1 mt-8 start-28 inline-flex items-center px-4 py-2 leading-6 text-sm shadow rounded-md text-white bg-indigo-500 hover:bg-indigo-400 transition ease-in-out duration-150">
                                     <svg id="loadingSpinner" class="hidden animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                         <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
@@ -53,11 +57,27 @@
     </div>
 </div>
 <script>
+    document.getElementById('showHidePasswordBtn').addEventListener('click', togglePasswordVisibility);
     document.getElementById('submitButton').addEventListener('click', submitLoginForm);
+
+    function togglePasswordVisibility() {
+        const passwordInput = document.getElementById('password');
+        const passwordIcon = document.getElementById('passwordIcon');
+
+        if (passwordInput.type === 'password') {
+            passwordInput.type = 'text';
+            passwordIcon.classList.remove('bi-eye-fill');
+            passwordIcon.classList.add('bi-eye-slash-fill');
+        } else {
+            passwordInput.type = 'password';
+            passwordIcon.classList.remove('bi-eye-slash-fill');
+            passwordIcon.classList.add('bi-eye-fill');
+        }
+    }
 
     async function submitLoginForm() {
         const form = document.getElementById('loginForm');
-        const formData = new FormData(form);
+        let formData = new FormData(form);
 
         let submitText = document.getElementById('submitText');
         let loadingSpinner = document.getElementById('loadingSpinner');
@@ -72,7 +92,7 @@
         submitText.textContent = 'Processing...';
 
         try {
-            const response = await fetch('/login-auth', {
+            let response = await fetch('/login-auth', { <!--GANTI SESUAI URL ROUTE::POST KALIAN-->
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
@@ -81,7 +101,7 @@
             });
 
             if (response.ok) {
-                window.location.href = '/dashboard';
+                window.location.href = '/dashboard';  <!--GANTI SESUAI URL ROUTE untuk DASHBOARD KLEAN -->
             } else {
                 resetLoginForm();
                 const responseData = await response.json();
@@ -94,7 +114,11 @@
             }
         } catch (error) {
             resetLoginForm();
-            alert('Terjadi kesalahan saat mengirim permintaan.');
+            Swal.fire({
+                icon: 'error',
+                title: 'Login gagal',
+                text: 'Terjadi Kesalahan saat mengirim permintaan',
+            })
         }
     }
 
@@ -114,7 +138,5 @@
         submitText.textContent = 'Login';
     }
 </script>
-
-
 </body>
 </html>

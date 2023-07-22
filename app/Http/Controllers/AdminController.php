@@ -12,12 +12,12 @@ use Illuminate\Support\Facades\Validator;
 class AdminController extends Controller
 {
     public final function auth(Request $request) {
-        $validator = Validator::make($request->all(), [
+        $validation = Validator::make($request->all(), [
             'username' => 'required',
             'password' => 'required',
         ]);
 
-        if ($validator->fails()) {
+        if ($validation->fails()) {
             return response()->json(['error' => 'Harap cek kembali input anda!'], 400);
         }
 
@@ -28,7 +28,7 @@ class AdminController extends Controller
 
         if (Auth::guard('admin')->attempt($credentials)) {
             $request->session()->regenerate();
-            return response()->json(['Ok'], 200);
+            return response()->json(['ok'], 200);
         } else {
             return response()->json(['error' => 'Username atau Password salah!'], 401);
         }
