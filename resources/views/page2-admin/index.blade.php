@@ -121,7 +121,7 @@
         <div class="dark:bg-gray-800 dark:text-gray-50">
             <form method="post" action="#" class="py-8 grid max-w-6xl grid-cols-1 px-6 mx-auto lg:px-8 md:grid-cols-2 md:divide-x">
                 <!-- Bagian input gambar -->
-                <div class="py-6 md:py-0 md:px-6">
+                <div class="my-auto py-6 md:py-0 md:px-6">
                     <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md" id="image-container">
                         <div class="text-center">
                             <div class="mt-10" id="uploaded-image">
@@ -142,20 +142,34 @@
                 <!-- Bagian form -->
                 <div class="flex flex-col py-6 space-y-8 md:py-0 md:px-6">
                     <div class="py-8 text-base leading-6 space-y-8 text-gray-700 dark:text-white sm:text-lg sm:leading-7">
-                        <div class="relative">
-                            <input autocomplete="off" id="username" name="username" type="text" class="peer placeholder-transparent
-                            bg-transparent h-10 w-full border-b-2 dark:text-white text-gray-900 focus:outline-none focus:borer-rose-600 rounded-2xl border-white" placeholder="Username" />
-                            <label for="username" class="absolute left-3 -top-5 dark:text-white text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-450 peer-placeholder-shown:top-2 transition-all peer-focus:-top-5 peer-focus:text-gray-600 dark:peer-focus:text-white peer-focus:text-sm">Username</label>
+                        <div class="relative mt-3">
+                            <input autocomplete="off" id="nama_produk" name="nama_produk" type="text" class="peer placeholder-transparent bg-transparent h-10 w-full border-b-2 border-gray-300 dark:text-white text-gray-900 focus:outline-none focus:borer-rose-600" placeholder="nama_produk" />
+                            <label for="nama_produk" class="absolute left-0 -top-4 dark:text-white text-gray-600 text-sm">Nama Produk</label>
                         </div>
-                        <div class="relative">
-                            <input autocomplete="off" id="password" name="password" type="password" class="peer placeholder-transparent
-                             bg-transparent h-10 w-full border-b-2 dark:text-white text-gray-900 focus:outline-none focus:borer-rose-600 rounded-2xl border-gray-200" placeholder="Password" />
-                            <label for="password" class="absolute left-3 -top-5 dark:text-white text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-5 peer-focus:text-gray-600 dark:peer-focus:text-white peer-focus:text-sm">Password</label>
+                        <div class="relative mt-8">
+                            <label for="kategori_produk" class="block mb-3 text-sm font-medium text-gray-900 dark:text-gray-50">Kategori Produk</label>
+                            <div class="relative">
+                                <select id="kategori_produk" name="kategori_produk" class="block w-full px-4 py-2 pr-8 text-base border border-gray-300 rounded-md appearance-none focus:outline-none focus:border-blue-600 dark:bg-gray-800 dark:text-white">
+                                    <option value="" disabled selected>Pilih kategori</option>
+                                    <option value="option1">Option 1</option>
+                                    <option value="option2">Option 2</option>
+                                    <option value="option3">Option 3</option>
+                                    <!-- Tambahkan opsi lain sesuai kebutuhan -->
+                                </select>
+                                <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                                    <i class="bi bi-chevron-down"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="relative mt-8">
+                            <label for="deskripsi_produk" class="block mb-3 text-sm font-medium text-gray-900 dark:text-gray-50">Deskripsi Produk</label>
+                            <textarea id="deskripsi_produk" rows="4" class="p-2.5 w-full text-md text-gray-900 dark:text-gray-50 bg-gray-50 dark:bg-gray-600 rounded-lg" placeholder="Ketik deskripsi produk disini..."></textarea>
                         </div>
                     </div>
                 </div>
             </form>
         </div>
+
     </div>
 </section>
 
